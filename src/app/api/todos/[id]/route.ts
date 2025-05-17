@@ -25,6 +25,7 @@ export async function PUT(
 
     return NextResponse.json(updatedTodo);
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Failed to update TODO" },
       { status: 500 }
@@ -51,6 +52,7 @@ export async function DELETE(
 
     return NextResponse.json({ message: "Deleted successfully" });
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Failed to delete TODO" },
       { status: 500 }
