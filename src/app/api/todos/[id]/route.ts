@@ -5,16 +5,17 @@ import Todo from "@/models/Todo";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/authOptions";
 
+// PUT /api/todos/[id]
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user?.email) return NextResponse.json([], { status: 401 });
 
     await connectToDB();
-    const { id } = params;
+    const { id } = context.params;
     const body = await request.json();
 
     const updatedTodo = await Todo.findByIdAndUpdate(id, body, { new: true });
@@ -33,16 +34,17 @@ export async function PUT(
   }
 }
 
+// DELETE /api/todos/[id]
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user?.email) return NextResponse.json([], { status: 401 });
 
     await connectToDB();
-    const { id } = params;
+    const { id } = context.params;
 
     const deletedTodo = await Todo.findByIdAndDelete(id);
 
