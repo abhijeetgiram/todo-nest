@@ -16,7 +16,7 @@ export default function TodoForm({ todo, onClose, onAdd }) {
   }, [todo]);
 
   useEffect(() => {
-    if (isEditMode) {
+    if (isEditMode && todo) {
       setTitle(todo?.title);
       setDescription(todo?.description);
     }

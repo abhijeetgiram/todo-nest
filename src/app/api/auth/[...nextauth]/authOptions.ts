@@ -9,7 +9,7 @@ export const authOptions: AuthOptions = {
     }),
   ],
   pages: {
-    signIn: '/signin', // Optional: your custom sign-in page
+    signIn: "/signin", // Optional: your custom sign-in page
   },
   callbacks: {
     async session({ session, token }) {
