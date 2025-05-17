@@ -1,8 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Todo } from "./Todo";
 
-export default function TodoForm({ todo, onClose, onAdd }) {
+interface TodoFormProps {
+  todo?: Todo | null;
+  onClose: () => void;
+  onAdd: (todo: Todo) => void;
+}
+
+export default function TodoForm({ todo, onClose, onAdd }: TodoFormProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [isEditMode, setIsEditMode] = useState(false);
@@ -22,10 +29,10 @@ export default function TodoForm({ todo, onClose, onAdd }) {
     }
   }, [isEditMode]);
 
-  const handleSubmit = async (e: Event) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (isEditMode) {
+    if (isEditMode && todo) {
       // Update existing todo
       const res = await fetch(`/api/todos/${todo._id}`, {
         method: "PUT",

@@ -14,7 +14,15 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async session({ session, token }) {
       // Add user email to session
-      session.user.email = token.email;
+      if (token.email) {
+        if (session.user) {
+          session.user.email = token.email;
+        }
+      } else {
+        if (session.user) {
+          session.user.email = null;
+        }
+      }
       return session;
     },
     async jwt({ token, account, profile }) {

@@ -1,4 +1,16 @@
-export default function TodoDelete({ todo, onCancel, onConfirm }) {
+import { Todo } from "./Todo";
+
+interface TodoDeleteProps {
+  todo: Todo;
+  onCancel: () => void;
+  onConfirm: () => void;
+}
+
+export default function TodoDelete({
+  todo,
+  onCancel,
+  onConfirm,
+}: TodoDeleteProps) {
   if (!todo) return null;
 
   return (

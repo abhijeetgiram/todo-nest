@@ -1,4 +1,12 @@
-export default function TodoItem({ todo, onEdit, onDelete }) {
+import { Todo } from "./Todo";
+
+interface TodoItemProps {
+  todo: Todo;
+  onEdit: (todo: Todo) => void;
+  onDelete: (todo: Todo) => void;
+}
+
+export default function TodoItem({ todo, onEdit, onDelete }: TodoItemProps) {
   if (!todo) return null;
 
   return (

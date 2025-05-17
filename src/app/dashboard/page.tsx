@@ -4,17 +4,7 @@ import { useEffect, useState } from "react";
 import TodoItem from "@/components/TodoItem";
 import TodoForm from "@/components/TodoForm";
 import TodoDelete from "@/components/TodoDelete";
-
-export class Todo {
-  _id!: string;
-  title!: string;
-  description!: string;
-  status!: string;
-  userEmail!: string;
-  createdAt!: string;
-  updatedAt!: string;
-  __v!: number;
-}
+import { Todo } from "./Todo";
 
 export default function DashboardPage() {
   const [todos, setTodos] = useState<Todo[]>([]);
