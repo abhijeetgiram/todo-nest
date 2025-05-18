@@ -1,12 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSession, signOut } from "next-auth/react";
+
 import TodoItem from "@/components/TodoItem";
 import TodoForm from "@/components/TodoForm";
 import TodoDelete from "@/components/TodoDelete";
 import { Todo } from "./Todo";
 
 export default function DashboardPage() {
+  const { data: session, status } = useSession();
   const [todos, setTodos] = useState<Todo[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [todoToEdit, setTodoToEdit] = useState<Todo | null>(null);
@@ -35,6 +38,24 @@ export default function DashboardPage() {
     setShowDeleteModal(true);
   };
 
+  // Handle checkbox click
+  const handleOnCheck = async (todo: Todo) => {
+    const updatedTodo = {
+      ...todo,
+      status: todo.status === "completed" ? "pending" : "completed",
+    };
+    const res = await fetch(`/api/todos/${todo._id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedTodo),
+    });
+    if (res.ok) {
+      setTodos((prev) =>
+        prev.map((t) => (t._id === todo._id ? updatedTodo : t))
+      );
+    }
+  };
+
   // Handle add or update
   const handleAddOrUpdate = async (todo: Todo) => {
     if (todoToEdit) {
@@ -61,6 +82,27 @@ export default function DashboardPage() {
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
+      {/* Header */}
+      <header className="w-full flex justify-between items-center px-6 py-4 border-b bg-white shadow-sm mb-6">
+        <div className="flex items-center gap-4">
+          {status === "authenticated" && session?.user?.name && (
+            <span className="text-gray-700 font-medium">
+              Hello, {session.user.name}
+            </span>
+          )}
+        </div>
+        {status === "authenticated" ? (
+          <button
+            onClick={() => signOut({ callbackUrl: "/" })}
+            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+          >
+            Sign Out
+          </button>
+        ) : (
+          <div />
+        )}
+      </header>
+
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Your TODOs</h1>
         <button
@@ -83,6 +125,7 @@ export default function DashboardPage() {
             todo={todo}
             onEdit={() => handleEditClick(todo)}
             onDelete={() => handleDeleteClick(todo)}
+            onCheck={() => handleOnCheck(todo)}
           />
         ))
       )}
@@ -101,7 +144,7 @@ export default function DashboardPage() {
       {showDeleteModal && todoToDelete && (
         <TodoDelete
           todo={todoToDelete}
-          onCancel={() => setShowDeleteModal(false)}
+          onClose={() => setShowDeleteModal(false)}
           onConfirm={handleDeleteConfirm}
         />
       )}

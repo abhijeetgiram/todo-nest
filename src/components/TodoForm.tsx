@@ -58,12 +58,12 @@ export default function TodoForm({ todo, onClose, onAdd }: TodoFormProps) {
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Background dim */}
       <div
-        className="absolute inset-0 bg-black bg-opacity-50"
+        className="absolute inset-0 bg-opacity-40 backdrop-blur-sm"
         onClick={onClose}
       ></div>
 
       {/* Modal Box */}
-      <div className="relative bg-black border p-6 rounded shadow-lg w-full max-w-md z-10">
+      <div className="relative border border-gray-200 p-8 rounded-2xl shadow-2xl w-full max-w-md z-10">
         <h2 className="text-xl mb-4">
           {isEditMode ? "Edit Todo" : "Add New Todo"}
         </h2>

@@ -1,5 +1,7 @@
 {
-  "welcome": "Welcome",
-  "create_todo": "Create TODO",
-  "logout": "Log Out"
+  "signInWithGoogle": "Sign in with Google",
+  "signOut": "Sign out",
+  "yourTodos": "Your TODOs",
+  "addTodo": "+ Add TODO",
+  "noTodos": "No TODOs yet."
 }

@@ -1,5 +1,7 @@
 {
-  "welcome": "Bienvenido",
-  "create_todo": "Crear Tarea",
-  "logout": "Cerrar sesión"
+  "signInWithGoogle": "Iniciar sesión con Google",
+  "signOut": "Cerrar sesión",
+  "yourTodos": "Tus tareas",
+  "addTodo": "+ Añadir tarea",
+  "noTodos": "No hay tareas aún."
 }
