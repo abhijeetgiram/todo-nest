@@ -80,6 +80,31 @@ export default function DashboardPage() {
     setTodoToDelete(null);
   };
 
+  if (status === "loading") {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-xl">Loading...</p>
+      </div>
+    );
+  }
+
+  if (status === "unauthenticated") {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen">
+        <h1 className="text-3xl font-bold mb-4">Please sign in</h1>
+        <p className="text-gray-600 mb-4">
+          You need to be signed in to view this page.
+        </p>
+        <button
+          onClick={() => signOut({ callbackUrl: "/" })}
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          Sign In
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="p-6 max-w-3xl mx-auto">
       {/* Header */}
@@ -105,15 +130,17 @@ export default function DashboardPage() {
 
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Your TODOs</h1>
-        <button
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-          onClick={() => {
-            setShowModal(true);
-            setTodoToEdit(null);
-          }}
-        >
-          + Add TODO
-        </button>
+        {session && status === "authenticated" && (
+          <button
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            onClick={() => {
+              setShowModal(true);
+              setTodoToEdit(null);
+            }}
+          >
+            + Add TODO
+          </button>
+        )}
       </div>
 
       {todos?.length === 0 ? (

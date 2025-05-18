@@ -16,7 +16,11 @@ export default function HomePage() {
   }, [status, router]);
 
   if (status === "loading") {
-    return <p>Loading...</p>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-xl">Loading...</p>
+      </div>
+    );
   }
 
   if (status === "unauthenticated") {
