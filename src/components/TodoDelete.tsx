@@ -22,7 +22,7 @@ export default function TodoDelete({
       ></div>
 
       {/* Modal Box */}
-      <div className="relative bg-black border border-gray-200 p-8 rounded-2xl shadow-2xl w-full max-w-md z-10">
+      <div className="relative bg-black-50 border border-gray-200 p-8 rounded-2xl shadow-2xl w-full max-w-md z-10">
         <h2 className="text-xl mb-4">Delete TODO</h2>
         <p>
           Are you sure you want to delete <b>{todo.title}</b>?
